@@ -1,0 +1,17 @@
+.left-sidebar {
+  padding-right: 40px;
+}
+
+.collection-sidebar-item ul {
+  list-style: none;
+  margin: 0;
+  padding-left: 10px;
+}
+
+.category-item {
+  padding: 5px 0;
+}
+
+.start-icon{
+  color: #ffa965;
+}

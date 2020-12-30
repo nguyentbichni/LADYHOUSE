@@ -1,0 +1,46 @@
+{
+  "catalogs": [
+    {"id": 1,  "name": "skin care"},
+    {"id": 2,  "name": "Makeup"}
+  ],
+  "products":[
+    {"id":1, "catalogId": 1, "name":"Serum AHC"},
+    {"id":2, "catalogId": 1, "name":"Innisfree Green Tea"},
+    {"id":3, "catalogId": 1, "name":"Cetaphil Gentle Skin"},
+    {"id":4, "catalogId": 1, "name":"Sunplay Skin Aqua"},
+    {"id":5, "catalogId": 1, "name":"L'Oreal Make Up Remover"}
+  ],
+  "productOptions":[
+    {"productId":1, "id":1, "name":"AHC Capture Solution Prime Revital ","image":"https://hvnetshop.vn/images/Product/Album/Tinh-Chat-Chong-Nhan-AHC-Capture-Solution-Prime-Revital-4366.jpg" ,"price":"200.000", "weight": "50ml", "flavour":"hồng", "description": "Làn da nếu không được chăm sóc kĩ và đúng quy trình thì sẽ không thể đẹp mãi suốt năm được, đặc biệt là khi tiếp xúc với môi trường nắng mưa thất thường. Để ngăn ngừa cũng như giúp làn da tươi sáng rạng rỡ suốt 365 ngày thì hãy nuôi dưỡng da từ hôm nay với Tinh chất Dưỡng Chống Lão Hoá AHC 365 Red"},
+    {"productId":1, "id":2, "name":"Serum AHC Capture Moist Solution Max Ampoule","image":"https://imua.com.vn/images/Product/Album/Serum-AHC-Capture-Moist-Solution-Max-Ampoule-Cap-Am-Sang-Da-3930.jpg","price":"300.000", "weight": "100ml", "flavour":"hồng", "description": "Làn da nếu không được chăm sóc kĩ và đúng quy trình thì sẽ không thể đẹp mãi suốt năm được, đặc biệt là khi tiếp xúc với môi trường nắng mưa thất thường. Để ngăn ngừa cũng như giúp làn da tươi sáng rạng rỡ suốt 365 ngày thì hãy nuôi dưỡng da từ hôm nay với Tinh chất Dưỡng Chống Lão Hoá AHC 365 Red"},
+    {"productId":2, "id":3, "name":"Innisfree Jeju Volcanic Pore Cleansing Foam 150ml ","image":"https://www.kosmebox.com/image/cache/data/INNISFREE/Volcanic-Pore-Cleansing-Foam-150ml/Jeju-Volcanic-Pore-Cleansing-Foam-1-500x500.jpg" ,"price":"200.000", "weight": "50ml", "flavour":"hồng", "description": "Jeju Volcanic Pore Cleansing Foam Innisfree là loại sữa rửa mặt dành riêng cho da có mụn cám, mụn đầu đen, da có lỗ chân lông to. Với chiết xuất từ đất sét và tro núi lửa trên hòn đảo Jeju nổi tiếng, Jeju Volcanic Pore Cleansing Foam Innisfree giúp lấy sạch đi bụi bẩn, mụn cám, mụn đầu đen, làm se khít lỗ chân lông, giúp cho da bạn luôn mềm mượt, sạch sẽ. Bạn sẽ tự tin hơn vào làn da rạng ngời của mình khi không còn nỗi lo về những đốm mụn đáng ghét."},
+    {"productId":2, "id":4, "name":"Innisfree Green Tea Foam Cleanser","image":"https://product.hstatic.net/1000006063/product/innisfree_green_tea_foam_cleanser_150ml_89b84ac35911462c87193c4cb8e9efe9_grande.jpg","price":"300.000", "weight": "100ml", "flavour":"hồng", "description": "Sữa rửa mặt trà xanh thích hợp cho da bị kích ứng với ô nhiễm môi trường, da có mụn nhưng không quá khẩn cấp (khẩn cấp và nhiều mụn khuyên dùng bộ Jeju Bija). Có khả năng làm sạch sâu, tái tạo mới làn da, làm sáng da, chống oxy hóa và ngăn ngừa mụn, viêm hiệu quả."},
+    {"productId":3, "id":5, "name":"Innisfree Green Tea Foam Cleanser 500ML","image":"https://salt.tikicdn.com/cache/w1200/ts/product/35/e9/fd/de5592b43a5e46550bc06d1aeaa45d63.jpg","price":"300.000", "weight": "100ml", "flavour":"hồng", "description": "Sản phẩm phù hợp với mọi loại da, đặc biệt là da nhạy cảm.Có thể sử dụng cho da bị mụn trứng cá, chàm thể tạng, eczema, rôm sảy, hăm da, ngứa, da khô, da nhạy cảm, vảy cá, đỏ da, vẩy nến, bỏng nắng, viêm da dị ứng, chàm tiếp xúc, da bị lão hóa, nám da, da bị kích thích khi sử dụng benzoyl peroxide, tretinoine, adapalene..."},
+    {"productId":3, "id":6, "name":"Innisfree Green Tea Foam Cleanser 125ML","image":"https://www.goodlife.co.ke/wp-content/uploads/2020/03/CETAPHIL-GENTLE-CLEANSER-250ML.jpg","price":"300.000", "weight": "100ml", "flavour":"hồng", "description": "Sản phẩm phù hợp với mọi loại da, đặc biệt là da nhạy cảm.Có thể sử dụng cho da bị mụn trứng cá, chàm thể tạng, eczema, rôm sảy, hăm da, ngứa, da khô, da nhạy cảm, vảy cá, đỏ da, vẩy nến, bỏng nắng, viêm da dị ứng, chàm tiếp xúc, da bị lão hóa, nám da, da bị kích thích khi sử dụng benzoyl peroxide, tretinoine, adapalene.."},
+    {"productId":4, "id":7, "name":" Sunplay Skin Aqua Tone Up UV Milk SPF50+PA++++","image":"https://mint07.com/wp-content/uploads/2019/06/sua-chong-nang-sunplay-skin-aqua-tone-up-uv-milk-spf50.jpg","price":"300.000", "weight": "100ml", "flavour":"hồng", "description": "Sữa Chống Nắng Sunplay Skin Aqua Tone Up UV Milk SPF50+PA++++ có sự hòa quyện sắc xanh và sắc hồng độc đáo tạo nên sắc tím hoa lavender giúp che phủ tự nhiên, nâng tông da sáng hồng. Kiểm soát dầu và dưỡng sáng da. Dạng sữa mỏng nhẹ với các hạt phấn siêu mịn. Kiềm dầu hiệu quả."},
+    {"productId":4, "id":8, "name":"Sunplay Skin Aqua Tone Up UV Milk (Mint Green)","image":"https://bizweb.dktcdn.net/100/180/838/products/sua-chong-nang-nang-tone-sun.jpg?v=1592462471870","price":"300.000", "weight": "100ml", "flavour":"hồng", "description": "Chống mọi tia UV với SPF 50+ và PA++++. Nâng tông da sáng trong veo, rạng rỡ. Hiệu chỉnh sắc da, che phủ tự nhiên với sắc xanh mint tươi mát. Tạo hiệu ứng trong suốt 3D với các hạt ngọc trai siêu mịn. Giữ ẩm và dưỡng sáng da với Hyaluronic Acid và Vitamin C"},
+    {"productId":5, "id":9, "name":" L'Oreal Paris Skincare Make Up Remover Micellar Deep Cleansing","image":"https://www.watsons.vn/medias/zoom-front-201742.jpg?context=bWFzdGVyfGZyb250L3pvb218NjQ0NjR8aW1hZ2UvanBlZ3xmcm9udC96b29tL2g1Ny9oNmEvOTIzODY0OTU2OTMxMC5qcGd8ZjhiZjVhMzg2NTk0NDlmYWEwNmNmMzNjNTExZGE4NDg4ZjZjZTYxMTI0NzJlM2Q3NjZmYWE3OTk5YzVkNzMxOA","price":"144.000", "weight": "400ml", "flavour":"xanh", "description": "Nước Tẩy Trang L'Oreal 3 In 1 Micellar Làm Sạch Sâu (400ml) mang đến các tẩy trang, làm sạch, giữ ẩm và dưỡng mềm da đồng thời chỉ trong một sản phẩm. Sản phẩm giúp lấy đi sạch cặn trang điểm nhưng không làm khô da. Hơn thế, thành phần an toàn và công nghệ tiên tiến giúp da giữ nước, thông thoáng, mềm mượt chỉ trong một bước."},
+    {"productId":5, "id":10, "name":"Tẩy Trang Dưỡng Ẩm L'Oreal Paris Micellar Water","image":"https://salt.tikicdn.com/ts/product/5a/9e/8a/a9b2277afaaf3d5709a2453a3b6a6551.jpg","price":"118.000", "weight": "400ml", "flavour":"hồng", "description": "Nước Tẩy Trang Dưỡng Ẩm L'Oreal Paris Micellar Water mang đến các tẩy trang, làm sạch, giữ ẩm và dưỡng mềm da đồng thời chỉ trong một sản phẩm. L'Oreal Paris 3-in-1 Micellar Water giúp lấy đi sạch cặn trang điểm nhưng không làm khô da. Hơn thế, thành phần an toàn và công nghệ tiên tiến giúp da giữ nước, thông thoáng, mềm mượt chỉ trong một bước. "}
+  ],
+  "cart":[
+    {"id":1, "customer_id":1},
+    {"id":2, "customer_id":2}
+  ],
+  "cartProduct":[
+    {"cart_id":1, "productDetailId":1, "quantity":2},
+    {"cart_id":1, "productDetailId":2, "quantity":4}
+  ],
+  "customer":[
+    {"id":1, "name":"Ni", "address":"Quảng Nam", "phone":"0702303444","username":"nguyentbichni","password":"ni2401"},
+    {"id":1, "name":"Na", "address":"Quảng Nam", "phone":"0702303555","username":"nguyentbichna","password":"na2401"}
+  ],
+  "order":[
+    {"id":1, "customer_id":1, "productDetail_id":1, "order_date":"12/03/2020", "price":"200.000","quantity":2 },
+    {"id":2, "customer_id":2, "productDetail_id":1, "order_date":"12/01/2020", "price":"200.000","quantity":2 }
+  ],
+  "comment":[
+    {"customer_id":1,"product_id:":1,"commentContent":"Lorem Ipsum is simply dummy text of the printing"},
+    {"customer_id":2,"product_id:":1,"commentContent":"Lorem Ipsum is simply dummy text of the printing"}
+  ]
+  
+}
