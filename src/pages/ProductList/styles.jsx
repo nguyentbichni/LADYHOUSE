@@ -50,7 +50,17 @@ export const ProductButtonItem = styled.div`
   width:30px;
   height:30px;
   border-radius:999px;
-  background-color:red;
+  background-color:#3f2803;
+  display: flex;
+  justify-content:center;
+  align-items:center;
+
+  & svg{
+    fill:#ffffff;
+  }
+  &:hover {
+    background-color:#ee2d7a;
+  }
 `;
 
 export const ProductContainer = styled.div`
