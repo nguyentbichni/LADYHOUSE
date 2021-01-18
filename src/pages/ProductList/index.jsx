@@ -5,7 +5,7 @@ import "./styles.css";
 
 import { Row, Col, Carousel, Space } from "antd";
 
-import { StarOutlined, StarFilled } from "@ant-design/icons";
+import { StarOutlined, StarFilled, ShoppingCartOutlined, HeartOutlined, EyeOutlined } from "@ant-design/icons";
 
 import { Text } from "../../components/styles";
 
@@ -40,9 +40,15 @@ function ProductList({ getProductLists, products }) {
             <Style.ProductContentHover className="product-hover">
               <Style.ProductButtonList>
                 <Space>
-                  <Style.ProductButtonItem></Style.ProductButtonItem>
-                  <Style.ProductButtonItem></Style.ProductButtonItem>
-                  <Style.ProductButtonItem></Style.ProductButtonItem>
+                  <Style.ProductButtonItem>
+                    <ShoppingCartOutlined />
+                  </Style.ProductButtonItem>
+                  <Style.ProductButtonItem>
+                    <HeartOutlined />
+                  </Style.ProductButtonItem>
+                  <Style.ProductButtonItem>
+                    <EyeOutlined />
+                  </Style.ProductButtonItem>
                 </Space>
               </Style.ProductButtonList>
             </Style.ProductContentHover>
