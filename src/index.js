@@ -9,6 +9,7 @@ import "antd/dist/antd.css";
 import DefaultLayout from "./layouts/DefaultLayout";
 import ProductList from "./pages/ProductList";
 import ProductDetail from "./pages/ProductDetail";
+import Home from "./pages/Home"
 
 import { Switch, Router } from "react-router-dom";
 import history from "./util/history";
@@ -39,7 +40,8 @@ ReactDOM.render(
       <ThemeProvider theme={themes}>
         <Router history={history}>
           <Switch>
-            <DefaultLayout exact path="/" component={ProductList} />
+            <DefaultLayout exact path="/product" component={ProductList} />
+            <DefaultLayout exact path="/" component={Home} />
             <DefaultLayout
               exact
               path="/products/:id"
