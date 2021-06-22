@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 
 import { Row, Col, Carousel } from "antd";
@@ -9,7 +9,7 @@ import Slider1 from "../../assets/img/slider-bg.jpg";
 import Slider2 from "../../assets/img/slider-bg-2.jpg";
 import ContentImg from "../../assets/img/content-image-5a.jpg";
 
-function Home(props) {
+function Home() {
   return (
     <>
       <Style.Container>

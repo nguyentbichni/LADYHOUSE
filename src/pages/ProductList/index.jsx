@@ -3,21 +3,19 @@ import { connect } from "react-redux";
 import history from "../../util/history";
 import "./styles.css";
 
-import { Row, Col, Carousel, Space } from "antd";
+import { Row, Col, Carousel, Space, Button } from "antd";
 
 import { StarOutlined, StarFilled, ShoppingCartOutlined, HeartOutlined, EyeOutlined } from "@ant-design/icons";
 
-import { Text } from "../../components/styles";
-
 import * as Style from "./styles";
 
-import { getProductLists } from "../../redux/actions";
+import { getProductLists as getProductListsAction } from "../../redux/actions";
 
-function ProductList({ getProductLists, products }) {
+function ProductList({ getProductLists, products}) {
   useEffect(() => {
     getProductLists();
   }, []);
-
+  const [isShowMore, setIsShowMore] = useState(false)
   const renderProductImages = (product) => {
     if (!product.productOptions) return null;
     return product.productOptions.map((option, optionIndex) => (
@@ -33,9 +31,13 @@ function ProductList({ getProductLists, products }) {
   };
 
   const renderProductList = () => {
-    return products.map((product, productIndex) => (
+    return products.map((product, productIndex) => {
+      if(!isShowMore && productIndex > 1){
+        return null;
+      }
+      return (
       <Col style={{ width: "20%" }}>
-        <Style.Product onClick={() => history.push(`/products/${product.id}`)}>
+        <Style.Product onClick={() => history.push(`/product/${product.id}`)}>
           <Style.ProductContainer>
             <Style.ProductContentHover className="product-hover">
               <Style.ProductButtonList>
@@ -63,6 +65,9 @@ function ProductList({ getProductLists, products }) {
               <Style.ProductNameContent href="#">
                 {product.name}
               </Style.ProductNameContent>
+              <p>
+                {product.catalog.name}
+              </p>
             </Style.ProductNameContainer>
 
             <Style.StarRating>
@@ -89,8 +94,10 @@ function ProductList({ getProductLists, products }) {
           </Style.ProductDetail>
         </Style.Product>
       </Col>
-    ));
+      )
+  });
   };
+
   return (
     <Style.ProductListContainer>
       <Row>
@@ -106,10 +113,6 @@ function ProductList({ getProductLists, products }) {
         </Col>
       </Row>
       <Style.ProductListContent>
-        {/* <Text xxxl w3>
-        Hello
-      </Text>
-      <Style.CustomButton>Hello</Style.CustomButton> */}
         <Row>
           <Col span={4}>
             <div className="left-sidebar">
@@ -182,27 +185,38 @@ function ProductList({ getProductLists, products }) {
               <div className="collection-grid">
                 <header className="section-header">Header</header>
                 <div>
-                  <Row gutter={16}>{renderProductList()}</Row>
+                  <Row gutter={16}>
+                    {renderProductList()}
+                  </Row>
+                  {(!isShowMore && products.length >= 2) && (
+                    <Button
+                      onClick = {() => setIsShowMore(true)}
+                    >
+                      Hiển thị thêm
+                    </Button>
+                  )}
                 </div>
               </div>
             </div>
           </Col>
         </Row>
+        <Button type="primary">dadasdasd</Button>
       </Style.ProductListContent>
     </Style.ProductListContainer>
   );
 }
 
 const mapStateToProps = (state) => {
-  const { products } = state;
+  const { products, productType } = state;
   return {
     products,
+    productType
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getProductLists: (params) => dispatch(getProductLists(params)),
+    getProductLists: (params) => dispatch(getProductListsAction(params)),
   };
 };
 

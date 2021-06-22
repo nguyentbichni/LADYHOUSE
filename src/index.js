@@ -11,7 +11,7 @@ import ProductList from "./pages/ProductList";
 import ProductDetail from "./pages/ProductDetail";
 import Home from "./pages/Home"
 
-import { Switch, Router } from "react-router-dom";
+import { Switch, Router, Route } from "react-router-dom";
 import history from "./util/history";
 
 import { createStore, applyMiddleware } from "redux";
@@ -25,7 +25,7 @@ import mySaga from "./redux/sagas";
 import { ThemeProvider } from "styled-components";
 import themes from "./constants/themes";
 
-import "antd/dist/antd.css";
+import "antd/dist/antd.less";
 
 const sagaMiddleware = createSagaMiddleware();
 const myStore = createStore(
@@ -40,11 +40,11 @@ ReactDOM.render(
       <ThemeProvider theme={themes}>
         <Router history={history}>
           <Switch>
-            <DefaultLayout exact path="/product" component={ProductList} />
+            <DefaultLayout exact path="/products" component={ProductList} />
             <DefaultLayout exact path="/" component={Home} />
             <DefaultLayout
               exact
-              path="/products/:id"
+              path="/product/:id"
               component={ProductDetail}
             />
           </Switch>
@@ -59,3 +59,10 @@ ReactDOM.render(
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
+
+// <Router>
+//   <Switch>
+//     <Route path="/home" component={Home} />
+//     <Route path="/product/:name" component={ProductDetail} />
+//   </Switch>
+// </Router>

@@ -7,23 +7,22 @@ import * as Style from "./styles";
 
 import { getProductDetail } from "../../redux/actions/index";
 
-import styled from "styled-components";
 function ProductDetail(props) {
   const { getProductDetail, productDetail, match } = props;
   const productId = match.params.id;
 
   useEffect(() => {
     getProductDetail({ id: productId });
-  }, []);
+  }, [productId]);
 
-  const renderProductDetail = () => {
-    return productDetail.map((product, productIndex) => (
-      <>
-        <p>{product.id}</p>
-        <p>{product.name}</p>
-      </>
-    ));
-  };
+  // const renderProductDetail = () => {
+  //   return productDetail.map((product, productIndex) => (
+  //     <>
+  //       <p>{product.id}</p>
+  //       <p>{product.name}</p>
+  //     </>
+  //   ));
+  // }; sai
   return (
     <>
       <div>
@@ -93,9 +92,10 @@ function ProductDetail(props) {
           <Col span={16}>
             <div className="right-collection">
               <div className="collection-grid">
-                <header className="section-header">Header</header>
+                <header className="section-header">Detail</header>
                 <div>
-                  <Row>{renderProductDetail()}</Row>
+                  <p>{productDetail.id}</p>
+                  <p>{productDetail.name}</p>
                 </div>
               </div>
             </div>

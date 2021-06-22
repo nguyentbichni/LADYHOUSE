@@ -3,11 +3,11 @@ import axios from 'axios';
 
 function* getProductSaga(action) {
   try {
-    const response = yield axios.get('http://localhost:3001/products?_embed=productOptions');
-    const data = response.data;
+    const response = yield axios.get('http://localhost:3001/products?_expand=catalog&_embed=productOptions');
+    console.log("🚀 ~ file: index.js ~ line 7 ~ function*getProductSaga ~ response", response)
     yield put({
       type: 'GET_PRODUCTS_SUCCESS',
-      payload: data,
+      payload: response.data,
     });
   } catch (error) {
     yield put({
@@ -20,12 +20,10 @@ function* getProductSaga(action) {
 function* getProductDetailSaga(action) {
   try {
     const { id } = action.payload
-    const responseProduct = yield axios.get(`http://localhost:3001/products/${id}`);
-    const dataProductDetail = responseProduct.data;
-    console.log("🚀 ~ file: index.js ~ line 25 ~ function*getProductDetailSaga ~ dataProductDetail", dataProductDetail)
+    const response = yield axios.get(`http://localhost:3001/products/${id}`);
     yield put({
       type: 'GET_PRODUCTS_DETAIL_SUCCESS',
-      payload: dataProductDetail
+      payload: response.data,
     });
   } catch (error) {
     yield put({
