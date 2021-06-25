@@ -11,11 +11,17 @@ import * as Style from "./styles";
 
 import { getProductLists as getProductListsAction } from "../../redux/actions";
 
-function ProductList({ getProductLists, products}) {
+function ProductList({ 
+    getProductLists,
+    productList
+  }) {
   useEffect(() => {
-    getProductLists();
+    getProductLists({
+      page: 1,
+      limit: 2,
+    });
   }, []);
-  const [isShowMore, setIsShowMore] = useState(false)
+
   const renderProductImages = (product) => {
     if (!product.productOptions) return null;
     return product.productOptions.map((option, optionIndex) => (
@@ -30,14 +36,22 @@ function ProductList({ getProductLists, products}) {
     ));
   };
 
+  function handleShowMore() {
+    // setPage(page + 1);
+    getProductLists({
+      more: true,
+      // page: page + 1,
+      page: productList.page + 1,
+      limit: 2,
+    });
+  }
+
   const renderProductList = () => {
-    return products.map((product, productIndex) => {
-      if(!isShowMore && productIndex > 1){
-        return null;
-      }
+    // if (productList.loading) return <p>Loading...</p>;
+    return productList.data.map((productItem, productIndex) => {
       return (
       <Col style={{ width: "20%" }}>
-        <Style.Product onClick={() => history.push(`/product/${product.id}`)}>
+        <Style.Product onClick={() => history.push(`/product/${productItem.id}`)}>
           <Style.ProductContainer>
             <Style.ProductContentHover className="product-hover">
               <Style.ProductButtonList>
@@ -56,17 +70,17 @@ function ProductList({ getProductLists, products}) {
             </Style.ProductContentHover>
             <div style={{ overflow: "hidden" }}>
               <Carousel autoplay dots={false}>
-                {renderProductImages(product)}
+                {renderProductImages(productItem)}
               </Carousel>
             </div>
           </Style.ProductContainer>
           <Style.ProductDetail>
             <Style.ProductNameContainer>
               <Style.ProductNameContent href="#">
-                {product.name}
+                {productItem.name}
               </Style.ProductNameContent>
               <p>
-                {product.catalog.name}
+                {productItem.catalog.name}
               </p>
             </Style.ProductNameContainer>
 
@@ -95,7 +109,7 @@ function ProductList({ getProductLists, products}) {
         </Style.Product>
       </Col>
       )
-  });
+    })
   };
 
   return (
@@ -188,13 +202,13 @@ function ProductList({ getProductLists, products}) {
                   <Row gutter={16}>
                     {renderProductList()}
                   </Row>
-                  {(!isShowMore && products.length >= 2) && (
-                    <Button
-                      onClick = {() => setIsShowMore(true)}
-                    >
-                      Hiển thị thêm
-                    </Button>
-                  )}
+                  {
+                    productList.data.length % 2 === 0 && (
+                      <Row justify="center">
+                        <Button onClick={() => handleShowMore()}>Show More</Button>
+                      </Row>
+                    )
+                  }
                 </div>
               </div>
             </div>
@@ -207,9 +221,9 @@ function ProductList({ getProductLists, products}) {
 }
 
 const mapStateToProps = (state) => {
-  const { products, productType } = state;
+  const { productList, productType } = state;
   return {
-    products,
+    productList,
     productType
   };
 };
