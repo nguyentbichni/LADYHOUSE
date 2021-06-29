@@ -35,6 +35,25 @@ function* getProductSaga(action) {
   }
 }
 
+function* getCategoryListSaga(action){
+  try{
+    const response = yield axios.get(`http://localhost:3001/catalogs`);
+    yield put({
+      type: 'GET_CATEGORY_LIST_SUCCESS',
+      payload: {
+        data: response.data,
+      }
+    });
+  } catch(error){
+    yield put({
+      type: 'GET_CATEGORY_LIST_FAIL',
+      payload: {
+        error: error.error
+      },
+    });
+  }
+}
+
 function* getProductDetailSaga(action) {
   try {
     const { id } = action.payload
@@ -54,4 +73,5 @@ function* getProductDetailSaga(action) {
 export default function* mySaga() {
   yield takeEvery('GET_PRODUCT_LIST', getProductSaga);
   yield takeEvery('GET_PRODUCT_DETAIL', getProductDetailSaga);
+  yield takeEvery('GET_CATEGORY_LIST_DETAIL', getCategoryListSaga);
 }

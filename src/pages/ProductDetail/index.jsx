@@ -5,14 +5,14 @@ import { connect } from "react-redux";
 import { Row, Col } from "antd";
 import * as Style from "./styles";
 
-import { getProductDetail } from "../../redux/actions/index";
+import { getProductListsAction } from "../../redux/actions/index";
 
 function ProductDetail(props) {
-  const { getProductDetail, productDetail, match } = props;
+  const { getProductListsAction , productDetail, match } = props;
   const productId = match.params.id;
 
   useEffect(() => {
-    getProductDetail({ id: productId });
+    getProductListsAction({ id: productId });
   }, [productId]);
 
   // const renderProductDetail = () => {
@@ -115,7 +115,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getProductDetail: (params) => dispatch(getProductDetail(params)),
+    getProductDetail: (params) => dispatch(getProductListsAction(params)),
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(ProductDetail);

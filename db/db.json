@@ -2,11 +2,15 @@
   "catalogs": [
     {
       "id": 1,
-      "name": "skin care"
+      "name": "Skin Care"
     },
     {
       "id": 2,
       "name": "Makeup"
+    },
+    {
+      "id": 3,
+      "name": "Hair Care"
     }
   ],
   "products": [

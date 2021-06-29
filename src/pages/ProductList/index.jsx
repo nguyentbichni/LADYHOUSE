@@ -9,13 +9,17 @@ import { StarOutlined, StarFilled, ShoppingCartOutlined, HeartOutlined, EyeOutli
 
 import * as Style from "./styles";
 
-import { getProductLists as getProductListsAction } from "../../redux/actions";
+import { getProductListsAction, getCategoryListAction } from "../../redux/actions";
 
 function ProductList({ 
     getProductLists,
-    productList
+    productList,
+    getCategoryLists,
+    categoryList
   }) {
+  const [categorySelected, setCategorySelected] = useState(undefined);
   useEffect(() => {
+    getCategoryLists();
     getProductLists({
       page: 1,
       limit: 2,
@@ -43,11 +47,40 @@ function ProductList({
       // page: page + 1,
       page: productList.page + 1,
       limit: 2,
+      catalogId: categorySelected,
     });
   }
 
+  function handleFilterCategory(id) {
+    setCategorySelected(id);
+    // setPage(1);
+    getProductLists({
+      page: 1,
+      limit: 2,
+      catalogId: id,
+    })
+  }
+
+  const renderCategoryList = () => {
+    if (categoryList.loading) return <p>Loading...</p>;
+    return categoryList.data.map((categoryItem, categoryIndex) => {
+      console.log("renderCategoryList -> categoryItem", categoryItem)
+      return (
+        <li className="category-item">
+          <a 
+            href="#"
+            onClick={() => handleFilterCategory(categoryItem.id)}
+            style={{ color: categorySelected === categoryItem.id ? 'red': '' }}
+          >
+            {categoryItem.name}
+          </a>
+        </li>
+      )
+    })
+  }
+
   const renderProductList = () => {
-    // if (productList.loading) return <p>Loading...</p>;
+    if (productList.loading) return <p>Loading...</p>;
     return productList.data.map((productItem, productIndex) => {
       return (
       <Col style={{ width: "20%" }}>
@@ -136,17 +169,9 @@ function ProductList({
                   <hr />
                   <ul>
                     <li className="category-item">
-                      <a href="#">Beauty Care</a>
+                      <a href="#">All</a>
                     </li>
-                    <li className="category-item">
-                      <a href="#">Hair Care</a>
-                    </li>
-                    <li className="category-item">
-                      <a href="#">Skin Care</a>
-                    </li>
-                    <li className="category-item">
-                      <a href="#">Face Care</a>
-                    </li>
+                    {renderCategoryList()}
                   </ul>
                 </div>
                 <div className="collection-sidebar-item">
@@ -221,16 +246,17 @@ function ProductList({
 }
 
 const mapStateToProps = (state) => {
-  const { productList, productType } = state;
+  const { productList, categoryList  } = state;
   return {
     productList,
-    productType
+    categoryList
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
     getProductLists: (params) => dispatch(getProductListsAction(params)),
+    getCategoryLists: (params) => dispatch(getCategoryListAction(params)),
   };
 };
 

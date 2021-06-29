@@ -10,10 +10,15 @@ const initialState = {
       category: {},
       productOptions: [],
     },
-    load: false,
+    loading: false,
     error: '',
   },
-  loading: false,
+  categoryList: {
+    data: [],
+    loading: false,
+    error: '',
+  },
+  // loading: false,
 };
 
 function myReducer(state = initialState, action) {
@@ -39,7 +44,7 @@ function myReducer(state = initialState, action) {
               ...data,
             ],
             page: page,
-            load: false,
+            loading: false,
           }
         }
       }
@@ -74,7 +79,7 @@ function myReducer(state = initialState, action) {
         productDetail: {
           ...state.productDetail,
           data: data,
-          load: false,
+          loading: false,
         },
       }
     }
@@ -84,8 +89,40 @@ function myReducer(state = initialState, action) {
         ...state,
         productDetail: {
           ...state.productDetail,
-          load: false,
+          loading: false,
           error: error,
+        },
+      }
+    }
+    case 'GET_CATEGORY_LIST': {
+      const { data } = action.payload;
+      return{
+        ...state,
+        categoryList:{
+          ...state.categoryList,
+          loading: true
+        },
+      }
+    }
+    case 'GET_CATEGORY_LIST_SUCCESS': {
+      const { data } = action.payload;
+      return{
+        ...state,
+        categoryList:{
+          ...state.categoryList,
+          data: data,
+          loading: false
+        },
+      }
+    }
+    case 'GET_CATEGORY_LIST_FAIL': {
+      const { error } = action.payload;
+      return{
+        ...state,
+        categoryList:{
+          ...state.categoryList,
+          error: error,
+          loading: false
         },
       }
     }
