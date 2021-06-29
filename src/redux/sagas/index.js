@@ -3,9 +3,9 @@ import axios from 'axios';
 
 function* getProductSaga(action) {
   try {
-    const { page, limit, catalogId, more } = action.payload;
+    const { page, limit, catalogId, searchKey ,more } = action.payload;
     // const response = yield axios.get('http://localhost:3001/products?_expand=catalog&_embed=productOptions');
-    // const catalogData = catalogId && { catalogId: catalogId };
+    // const catalogData = catalogId ? { catalogId: catalogId } : {};
     const response = yield axios({
       method: 'GET',
       url: 'http://localhost:3001/products',
@@ -14,7 +14,9 @@ function* getProductSaga(action) {
         _embed: 'productOptions',
         _page: page,
         _limit: limit,
+        // ...catalogData
         ...catalogId && { catalogId },
+        ...searchKey && { q: searchKey },
       }
     });
     yield put({

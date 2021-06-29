@@ -45,6 +45,16 @@ function Header() {
                 placeholder="input search text"
                 allowClear
                 style={{ width: 200, margin: '0 10px' }}
+                onSearch={(value) => {
+                  if (value || history.location.pathname === '/products') {
+                    history.push({
+                      pathname: '/products',
+                      state: {
+                        searchKey: value,
+                      },
+                    })
+                  }
+                }}
               />
             </li>
             <li><a href="#"><FaUser /></a></li>

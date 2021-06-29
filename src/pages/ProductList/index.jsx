@@ -5,26 +5,42 @@ import "./styles.css";
 
 import { Row, Col, Carousel, Space, Button } from "antd";
 
-import { StarOutlined, StarFilled, ShoppingCartOutlined, HeartOutlined, EyeOutlined } from "@ant-design/icons";
+import {
+  StarOutlined,
+  StarFilled,
+  ShoppingCartOutlined,
+  HeartOutlined,
+  EyeOutlined,
+} from "@ant-design/icons";
 
 import * as Style from "./styles";
 
-import { getProductListsAction, getCategoryListAction } from "../../redux/actions";
+import {
+  getProductListsAction,
+  getCategoryListAction,
+} from "../../redux/actions";
 
-function ProductList({ 
-    getProductLists,
-    productList,
-    getCategoryLists,
-    categoryList
-  }) {
+function ProductList({
+  getProductLists,
+  productList,
+  getCategoryLists,
+  categoryList,
+}) {
   const [categorySelected, setCategorySelected] = useState(undefined);
+  
+  const searchKey = history.location.state && history.location.state.searchKey;
+
   useEffect(() => {
     getCategoryLists();
+  }, []);
+
+  useEffect(() => {
     getProductLists({
       page: 1,
       limit: 2,
+      searchKey: searchKey,
     });
-  }, []);
+  }, [searchKey]);
 
   const renderProductImages = (product) => {
     if (!product.productOptions) return null;
@@ -48,6 +64,7 @@ function ProductList({
       page: productList.page + 1,
       limit: 2,
       catalogId: categorySelected,
+      searchKey: searchKey,
     });
   }
 
@@ -58,91 +75,99 @@ function ProductList({
       page: 1,
       limit: 2,
       catalogId: id,
-    })
+      searchKey: searchKey,
+    });
   }
 
   const renderCategoryList = () => {
     if (categoryList.loading) return <p>Loading...</p>;
-    return categoryList.data.map((categoryItem, categoryIndex) => {
-      console.log("renderCategoryList -> categoryItem", categoryItem)
+    const newCategoryList = [
+      {
+        name: 'All'
+      },
+      ...categoryList.data,
+    ]
+    return newCategoryList.map((categoryItem, categoryIndex) => {
+      console.log("renderCategoryList -> categoryItem", categoryItem);
       return (
         <li className="category-item">
-          <a 
-            href="#"
+          {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+          <a
+            href="javascript:void(0)"
             onClick={() => handleFilterCategory(categoryItem.id)}
-            style={{ color: categorySelected === categoryItem.id ? 'red': '' }}
+            style={{ color: categorySelected === categoryItem.id ? "red" : "" }}
           >
             {categoryItem.name}
           </a>
         </li>
-      )
-    })
-  }
+      );
+    });
+  };
 
   const renderProductList = () => {
     if (productList.loading) return <p>Loading...</p>;
     return productList.data.map((productItem, productIndex) => {
       return (
-      <Col style={{ width: "20%" }}>
-        <Style.Product onClick={() => history.push(`/product/${productItem.id}`)}>
-          <Style.ProductContainer>
-            <Style.ProductContentHover className="product-hover">
-              <Style.ProductButtonList>
-                <Space>
-                  <Style.ProductButtonItem>
-                    <ShoppingCartOutlined />
-                  </Style.ProductButtonItem>
-                  <Style.ProductButtonItem>
-                    <HeartOutlined />
-                  </Style.ProductButtonItem>
-                  <Style.ProductButtonItem>
-                    <EyeOutlined />
-                  </Style.ProductButtonItem>
-                </Space>
-              </Style.ProductButtonList>
-            </Style.ProductContentHover>
-            <div style={{ overflow: "hidden" }}>
-              <Carousel autoplay dots={false}>
-                {renderProductImages(productItem)}
-              </Carousel>
-            </div>
-          </Style.ProductContainer>
-          <Style.ProductDetail>
-            <Style.ProductNameContainer>
-              <Style.ProductNameContent href="#">
-                {productItem.name}
-              </Style.ProductNameContent>
-              <p>
-                {productItem.catalog.name}
-              </p>
-            </Style.ProductNameContainer>
+        <Col style={{ width: "20%" }}>
+          <Style.Product
+            onClick={() => history.push(`/product/${productItem.id}`)}
+          >
+            <Style.ProductContainer>
+              <Style.ProductContentHover className="product-hover">
+                <Style.ProductButtonList>
+                  <Space>
+                    <Style.ProductButtonItem>
+                      <ShoppingCartOutlined />
+                    </Style.ProductButtonItem>
+                    <Style.ProductButtonItem>
+                      <HeartOutlined />
+                    </Style.ProductButtonItem>
+                    <Style.ProductButtonItem>
+                      <EyeOutlined />
+                    </Style.ProductButtonItem>
+                  </Space>
+                </Style.ProductButtonList>
+              </Style.ProductContentHover>
+              <div style={{ overflow: "hidden" }}>
+                <Carousel autoplay dots={false}>
+                  {renderProductImages(productItem)}
+                </Carousel>
+              </div>
+            </Style.ProductContainer>
+            <Style.ProductDetail>
+              <Style.ProductNameContainer>
+                <Style.ProductNameContent href="#">
+                  {productItem.name}
+                </Style.ProductNameContent>
+                <p>{productItem.catalog.name}</p>
+              </Style.ProductNameContainer>
 
-            <Style.StarRating>
-              <i>
-                <StarFilled />
-              </i>
-              <i>
-                <StarOutlined />
-              </i>
-              <i>
-                <StarOutlined />
-              </i>
-              <i>
-                <StarOutlined />
-              </i>
-              <i>
-                <StarOutlined />
-              </i>
-            </Style.StarRating>
-            <Style.ProductPrice>
-              <Style.SalePrice>130.00</Style.SalePrice>
-              <Style.OrgPrice>150.00</Style.OrgPrice>
-            </Style.ProductPrice>
-          </Style.ProductDetail>
-        </Style.Product>
-      </Col>
-      )
-    })
+              <Style.StarRating>
+                <i>
+                  <StarFilled />
+                </i>
+                <i>
+                  <StarOutlined />
+                </i>
+                <i>
+                  <StarOutlined />
+                </i>
+                <i>
+                  <StarOutlined />
+                </i>
+                <i>
+                  <StarOutlined />
+                </i>
+              </Style.StarRating>
+              <Style.ProductPrice>
+                <Style.SalePrice>130.00</Style.SalePrice>
+                <Style.OrgPrice>150.00</Style.OrgPrice>
+              </Style.ProductPrice>
+            </Style.ProductDetail>
+          </Style.Product>
+        </Col>
+      );
+    });
   };
 
   return (
@@ -168,9 +193,6 @@ function ProductList({
                   <h4>Category</h4>
                   <hr />
                   <ul>
-                    <li className="category-item">
-                      <a href="#">All</a>
-                    </li>
                     {renderCategoryList()}
                   </ul>
                 </div>
@@ -222,18 +244,18 @@ function ProductList({
           <Col span={20}>
             <div className="right-collection">
               <div className="collection-grid">
-                <header className="section-header">Header</header>
+                {searchKey && (
+                  <div>Search for "{searchKey}"</div>
+                )}
                 <div>
-                  <Row gutter={16}>
-                    {renderProductList()}
-                  </Row>
-                  {
-                    productList.data.length % 2 === 0 && (
-                      <Row justify="center">
-                        <Button onClick={() => handleShowMore()}>Show More</Button>
-                      </Row>
-                    )
-                  }
+                  <Row gutter={16}>{renderProductList()}</Row>
+                  {productList.data.length % 2 === 0 && (
+                    <Row justify="center">
+                      <Button onClick={() => handleShowMore()}>
+                        Show More
+                      </Button>
+                    </Row>
+                  )}
                 </div>
               </div>
             </div>
@@ -246,10 +268,10 @@ function ProductList({
 }
 
 const mapStateToProps = (state) => {
-  const { productList, categoryList  } = state;
+  const { productList, categoryList } = state;
   return {
     productList,
-    categoryList
+    categoryList,
   };
 };
 
