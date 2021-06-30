@@ -95,7 +95,6 @@ function myReducer(state = initialState, action) {
       }
     }
     case 'GET_CATEGORY_LIST': {
-      const { data } = action.payload;
       return{
         ...state,
         categoryList:{

@@ -3,19 +3,19 @@ import axios from 'axios';
 
 function* getProductSaga(action) {
   try {
-    const { page, limit, catalogId, searchKey ,more } = action.payload;
-    // const response = yield axios.get('http://localhost:3001/products?_expand=catalog&_embed=productOptions');
-    // const catalogData = catalogId ? { catalogId: catalogId } : {};
+    const { page, limit, categoryId, searchKey ,more } = action.payload;
+    // const response = yield axios.get('http://localhost:3001/products?_expand=category&_embed=productOptions');
+    // const categoryData = categoryId ? { categoryId: categoryId } : {};
     const response = yield axios({
       method: 'GET',
       url: 'http://localhost:3001/products',
       params: {
-        _expand: 'catalog',
+        _expand: 'category',
         _embed: 'productOptions',
         _page: page,
         _limit: limit,
-        // ...catalogData
-        ...catalogId && { catalogId },
+        // ...categoryData
+        ...categoryId && { categoryId },
         ...searchKey && { q: searchKey },
       }
     });
@@ -39,7 +39,7 @@ function* getProductSaga(action) {
 
 function* getCategoryListSaga(action){
   try{
-    const response = yield axios.get(`http://localhost:3001/catalogs`);
+    const response = yield axios.get(`http://localhost:3001/categories`);
     yield put({
       type: 'GET_CATEGORY_LIST_SUCCESS',
       payload: {
@@ -59,15 +59,26 @@ function* getCategoryListSaga(action){
 function* getProductDetailSaga(action) {
   try {
     const { id } = action.payload
-    const response = yield axios.get(`http://localhost:3001/products/${id}`);
+    // const response = yield axios.get(`http://localhost:3001/products/${id}`);
+    const response = yield axios({
+      method: 'GET',
+      url: `http://localhost:3001/products/${id}`,
+      params: {
+        _embed: 'productOptions',
+      }
+    })
     yield put({
       type: 'GET_PRODUCTS_DETAIL_SUCCESS',
-      payload: response.data,
+      payload: {
+        data: response.data
+      },
     });
   } catch (error) {
     yield put({
       type: 'GET_PRODUCTS_DETAIL_FAIL',
-      payload: error,
+      payload: {
+        error: error.error,
+      },
     });
   }
 }

@@ -63,7 +63,7 @@ function ProductList({
       // page: page + 1,
       page: productList.page + 1,
       limit: 2,
-      catalogId: categorySelected,
+      categoryId: categorySelected,
       searchKey: searchKey,
     });
   }
@@ -74,7 +74,7 @@ function ProductList({
     getProductLists({
       page: 1,
       limit: 2,
-      catalogId: id,
+      categoryId: id,
       searchKey: searchKey,
     });
   }
@@ -139,7 +139,7 @@ function ProductList({
                 <Style.ProductNameContent href="#">
                   {productItem.name}
                 </Style.ProductNameContent>
-                <p>{productItem.catalog.name}</p>
+                <p>{productItem.category.name}</p>
               </Style.ProductNameContainer>
 
               <Style.StarRating>
@@ -196,48 +196,6 @@ function ProductList({
                     {renderCategoryList()}
                   </ul>
                 </div>
-                <div className="collection-sidebar-item">
-                  <h4>Shop by Weight</h4>
-                  <hr />
-                  <ul>
-                    <li className="category-item">
-                      <a href="#">100 ml </a>
-                    </li>
-                    <li className="category-item">
-                      <a href="#">150 ml</a>
-                    </li>
-                    <li className="category-item">
-                      <a href="#">200 ml</a>
-                    </li>
-                    <li className="category-item">
-                      <a href="#">250 ml</a>
-                    </li>
-                    <li className="category-item">
-                      <a href="#">300 ml</a>
-                    </li>
-                  </ul>
-                </div>
-                <div className="collection-sidebar-item">
-                  <h4>Shop by Weight</h4>
-                  <hr />
-                  <ul>
-                    <li className="category-item">
-                      <a href="#">100 - 200</a>
-                    </li>
-                    <li className="category-item">
-                      <a href="#">200 - 300</a>
-                    </li>
-                    <li className="category-item">
-                      <a href="#">300 - 400</a>
-                    </li>
-                    <li className="category-item">
-                      <a href="#">500 - 600</a>
-                    </li>
-                    <li className="category-item">
-                      <a href="#">500 - xxx</a>
-                    </li>
-                  </ul>
-                </div>
               </div>
             </div>
           </Col>
@@ -261,7 +219,6 @@ function ProductList({
             </div>
           </Col>
         </Row>
-        <Button type="primary">dadasdasd</Button>
       </Style.ProductListContent>
     </Style.ProductListContainer>
   );
