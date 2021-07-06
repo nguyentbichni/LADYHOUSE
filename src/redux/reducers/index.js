@@ -18,6 +18,12 @@ const initialState = {
     loading: false,
     error: '',
   },
+  //login
+  userInfo:{
+    data: {},
+    load: false,
+    error: ''
+  }
   // loading: false,
 };
 
@@ -123,6 +129,39 @@ function myReducer(state = initialState, action) {
           error: error,
           loading: false
         },
+      }
+    }
+
+    //login
+    case 'LOGIN_REQUEST':{
+      return{
+        ...state,
+        userInfo:{
+          ...state.userInfo,
+          load: true
+        }
+      }
+    }
+    case 'LOGIN_SUCCESS' :{
+      const { data } = action.payload;
+      return{
+        ...state,
+        userInfo:{
+          ...state.userInfo,
+          data: data,
+          load: false,
+        }
+      }
+    }
+    case 'LOGIN_FAIL': {
+      const { error } = action.payload;
+      return{
+        ...state,
+        userInfo: {
+          ...state.userInfo,
+          load: false,
+          error: error,
+        }
       }
     }
     default: {

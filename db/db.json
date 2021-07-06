@@ -1,4 +1,24 @@
 {
+  "users":[
+    {
+      "id": 1,
+      "name": "Ni",
+      "address": "Quảng Nam",
+      "phone": "0702303444",
+      "username": "nguyentbichni",
+      "password": "ni2401",
+      "role": "admin"
+    },
+    {
+      "id": 1,
+      "name": "Na",
+      "address": "Quảng Nam",
+      "phone": "0702303555",
+      "username": "nguyentbichna",
+      "password": "na2401",
+      "role": "user"
+    }
+  ],
   "categories": [
     {
       "id": 1,
@@ -57,24 +77,6 @@
       "productId": 2,
       "title": "150ml",
       "price": 50000
-    }
-  ],
-  "customer": [
-    {
-      "id": 1,
-      "name": "Ni",
-      "address": "Quảng Nam",
-      "phone": "0702303444",
-      "username": "nguyentbichni",
-      "password": "ni2401"
-    },
-    {
-      "id": 1,
-      "name": "Na",
-      "address": "Quảng Nam",
-      "phone": "0702303555",
-      "username": "nguyentbichna",
-      "password": "na2401"
     }
   ],
   "order": [

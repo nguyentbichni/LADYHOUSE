@@ -1,16 +1,37 @@
 import React from 'react';
 import './styles.css'
+
+import { connect } from 'react-redux';
 import history from "../../util/history";
 
 import logo from '../../assets/logo.webp'
 
 import { FaBars, FaUser, FaShoppingCart, FaHeart } from 'react-icons/fa'
-import { Input } from 'antd';
+import { Input, Space, Button } from 'antd';
 
-function Header() {
+function Header({ userInfo }) {
   const { Search } = Input;
+
+  const handleLogout = () =>{
+    localStorage.removeItem('userInfo');
+    return history.push('/login');
+  }
+
   return (
     <header className="site-header">
+      {userInfo.data.id
+        ? (
+          <Space>
+            <p>{`Tên đăng nhập: ${userInfo.data.name}`}</p>
+            <Button onClick={() => handleLogout()}>Đăng xuất</Button>
+          </Space>
+        )
+        : (
+          <Space size={32}>
+            <Button onClick={() => history.push('/login')}>Đăng nhập</Button>
+          </Space>
+        )
+      }
       <div className="header-sticky">
         <div className="header-left">
           <h1>
@@ -24,15 +45,6 @@ function Header() {
             <div className="site-nav-dropdown">
               <div className="list-item">
                 <a href="#" className="categories-title" onClick={() => history.push(`/products/`)}>SKIN CARE</a>
-                <ul className="list-branch">
-                  <li>Innisfree</li>
-                  <li>AHC</li>
-                  <li>Neutrogena</li>
-                  <li>COSRX</li>
-                  <li>Cetaphil</li>
-                  <li>Laneige</li>
-                  <li>Pond's</li>
-                </ul>
               </div>
             </div>
             </a>
@@ -66,5 +78,10 @@ function Header() {
     </header>
   );
 }
-
-export default Header;
+const mapStateToProps = (state) => {
+  const { userInfo } = state;
+  return{
+    userInfo,
+  }
+};
+export default connect(mapStateToProps)(Header);

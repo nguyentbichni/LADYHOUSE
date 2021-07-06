@@ -6,10 +6,12 @@ import reportWebVitals from "./reportWebVitals";
 
 import "antd/dist/antd.css";
 
+import App from './App'
+
 import DefaultLayout from "./layouts/DefaultLayout";
-import ProductList from "./pages/ProductList";
-import ProductDetail from "./pages/ProductDetail";
-import Home from "./pages/Home"
+import ProductList from "./pages/User/ProductList";
+import ProductDetail from "./pages/User/ProductDetail";
+import Home from "./pages/User/Home"
 
 import { Switch, Router, Route } from "react-router-dom";
 import history from "./util/history";
@@ -37,7 +39,7 @@ sagaMiddleware.run(mySaga);
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={myStore}>
-      <ThemeProvider theme={themes}>
+      {/* <ThemeProvider theme={themes}>
         <Router history={history}>
           <Switch>
             <DefaultLayout exact path="/products" component={ProductList} />
@@ -49,7 +51,8 @@ ReactDOM.render(
             />
           </Switch>
         </Router>
-      </ThemeProvider>
+      </ThemeProvider> */}
+      <App />
     </Provider>
   </React.StrictMode>,
   document.getElementById("root")

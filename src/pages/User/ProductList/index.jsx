@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import history from "../../util/history";
+import history from "../../../util/history";
 import "./styles.css";
 
 import { Row, Col, Carousel, Space, Button } from "antd";
@@ -18,7 +18,7 @@ import * as Style from "./styles";
 import {
   getProductListsAction,
   getCategoryListAction,
-} from "../../redux/actions";
+} from "../../../redux/actions";
 
 function ProductList({
   getProductLists,
@@ -88,7 +88,6 @@ function ProductList({
       ...categoryList.data,
     ]
     return newCategoryList.map((categoryItem, categoryIndex) => {
-      console.log("renderCategoryList -> categoryItem", categoryItem);
       return (
         <li className="category-item">
           {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
@@ -159,10 +158,6 @@ function ProductList({
                   <StarOutlined />
                 </i>
               </Style.StarRating>
-              <Style.ProductPrice>
-                <Style.SalePrice>130.00</Style.SalePrice>
-                <Style.OrgPrice>150.00</Style.OrgPrice>
-              </Style.ProductPrice>
             </Style.ProductDetail>
           </Style.Product>
         </Col>

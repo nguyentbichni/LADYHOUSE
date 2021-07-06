@@ -18,3 +18,10 @@ export function getCategoryListAction(params){
     payload: params,
   }
 }
+
+export function loginAction(params){
+  return{
+    type: 'LOGIN_REQUEST',
+    payload: params,
+  }
+}

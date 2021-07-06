@@ -5,18 +5,18 @@ import { Row, Col, Carousel } from "antd";
 import {FaHandHoldingHeart} from "react-icons/fa"
 import * as Style from "./styles";
 
-import Slider1 from "../../assets/img/slider-bg.jpg";
-import Slider2 from "../../assets/img/slider-bg-2.jpg";
-import ContentImg from "../../assets/img/content-image-5a.jpg";
+// import Slider1 from "../../assets/img/slider-bg.jpg";
+// import Slider2 from "../../assets/img/slider-bg-2.jpg";
+// import ContentImg from "../../assets/img/content-image-5a.jpg";
 
 function Home() {
   return (
     <>
       <Style.Container>
-        <Carousel autoplay dots={false}>
+        {/* <Carousel autoplay dots={false}>
           <Style.BackgroundImage image={Slider1} />
           <Style.BackgroundImage image={Slider2} />
-        </Carousel>
+        </Carousel> */}
 
         <Style.ElementorInner>
           <Style.ElementorContainer>
@@ -29,9 +29,9 @@ function Home() {
                     </Style.HeadlineFirst>
                     <Style.HeadlineSecond>Makeup Kit</Style.HeadlineSecond>
                   </Style.ElementorWidget>
-                  <Style.ElementorImage>
+                  {/* <Style.ElementorImage>
                     <img src={ContentImg} alt="ElementorImage"/>
-                  </Style.ElementorImage>
+                  </Style.ElementorImage> */}
                 </Style.ElementorElementFirst>
               </Col>
               <Col span={10}>

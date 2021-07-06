@@ -1,5 +1,6 @@
 import { put, takeEvery } from 'redux-saga/effects';
 import axios from 'axios';
+import history from '../../util/history';
 
 function* getProductSaga(action) {
   try {
@@ -83,8 +84,50 @@ function* getProductDetailSaga(action) {
   }
 }
 
+function* loginSaga(action){
+  try{
+    const {email, password} = action.payload;
+    const response = yield axios({
+      method: 'GET',
+      url: 'http://localhost:3001/users',
+      params:{
+        email,
+        password,
+      }
+    });
+    if(response.data.length > 0){
+      localStorage.setItem('userInfo', JSON.stringify(response.data[0]));
+      yield put({
+        type: 'LOGIN_SUCCESS',
+        payload:{
+          data: response.data[0],
+        }
+      });
+      if (response.data[0].role === 'user'){
+        yield history.push('/')
+      } else{
+        yield history.push('/admin/products');
+      }
+    } else{
+      yield put({
+        type: 'LOGIN_FAIL',
+        payload: {
+          error: 'Email or Password Incorrect'
+        }
+      })
+    }
+  } catch(e){
+    yield put({
+      type: 'LOGIN_FAIL',
+      payload:{
+        error: e.error
+      }
+    });
+  }
+}
 export default function* mySaga() {
   yield takeEvery('GET_PRODUCT_LIST', getProductSaga);
   yield takeEvery('GET_PRODUCT_DETAIL', getProductDetailSaga);
   yield takeEvery('GET_CATEGORY_LIST_DETAIL', getCategoryListSaga);
+  yield takeEvery('LOGIN_REQUEST', loginSaga);
 }
