@@ -1,21 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 
-
-import { Radio, Comment, Avatar, Form, Button, List, Input, Rate } from "antd";
-import { HeartOutlined } from '@ant-design/icons';
-import moment from 'moment';
+import { Radio, Comment, Avatar, Form, Button, Input, Rate, Card, Tooltip } from "antd";
+import moment from "moment";
 
 import * as Style from "./styles";
 
-import { getProductDetailAction } from "../../../redux/actions/index";
+import { getProductDetailAction, reviewAction } from "../../../redux/actions/index";
 
 function ProductDetail(props) {
-  const { getProductDetail, match, productDetail } = props;
-  const [ optionSelected, setOptionSelected ] = useState({});
-  const [ comments, setComments ] = useState([]);
-  const [ submitComment, setSubmitComment ] = useState(false);
-  const [ commentValue, setCommentValue ] = useState('');
+  const { getProductDetail, match, productDetail, userInfo, postReview } = props;
+  const [optionSelected, setOptionSelected] = useState({});
+
   const productId = match.params.id;
 
   useEffect(() => {
@@ -23,67 +19,55 @@ function ProductDetail(props) {
   }, []);
 
   useEffect(() => {
-    if(productDetail.data.id){
-      setOptionSelected(productDetail.data.productOptions[0] || {})
+    if (productDetail.data.id) {
+      setOptionSelected(productDetail.data.productOptions[0] || {});
     }
-  }, [productDetail.data])
+  }, [productDetail.data]);
 
-
-  const CommentList = ({ comments }) => (
-    <List
-      dataSource={comments}
-      header={`${comments.length} ${comments.length > 1 ? 'replies' : 'reply'}`}
-      itemLayout="horizontal"
-      renderItem={props => <Comment {...props} />}
-    />
-  );
-  const { TextArea } = Input;
-  const Editor = ({ onChange, onSubmit, submitting, value }) => (
-    <>
-      <Form.Item>
-        <TextArea rows={4} onChange={onChange} value={value} />
-      </Form.Item>
-      <Form.Item>
-        <Button htmlType="submit" loading={submitting} onClick={onSubmit} type="primary">
-          Add Comment
-        </Button>
-      </Form.Item>
-    </>
-  );
-  
-  const handleSubmit = () => {
-    if (!commentValue) {
-      return;
+  const handleSubmit = (values) => {
+    const newValues = {
+      userId: userInfo.data.id,
+      productId: productId,
+      rate: values.rate,
+      comment: values.comment,
+      createAt: moment().valueOf(),
     }
-    setTimeout(() => {
-      setSubmitComment(false);
-      setCommentValue('');
-      setComments([
-          ...comments,
-          {
-            author: 'Han Solo',
-            avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
-            content: <p>{this.state.value}</p>,
-            datetime: moment().fromNow(),
-          },
-        ],
-      )
-    }, 1000);
+    console.log("🚀 ~ file: index.jsx ~ line 36 ~ handleSubmit ~ newValues", newValues);
+    postReview(newValues);
   };
 
-  const handleChange = e => {
-    const { value } = e.target;
-    setCommentValue(value);
-  };
-
-  function renderProductOptions(){
+  function renderProductOptions() {
     return productDetail.data.productOptions.map((item, index) => {
-      return(
-        <Radio.Button value={item}>
-          {item.title}
-        </Radio.Button>
+      return <Radio.Button value={item}>{item.title}</Radio.Button>;
+    });
+  }
+
+  function renderProductReviews() {
+    return productDetail.data.reviews.map((item, index) => {
+      return (
+        <Comment
+          key={index}
+          author={<a>{userInfo.data.name}</a>}
+          avatar={
+            <Avatar
+              src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
+              alt={userInfo.data.name}
+            />
+          }
+          content={
+            <>
+              <Rate value={item.rate} disabled />
+              <p>{item.comment}</p>
+            </>
+          }
+          datetime={
+            <Tooltip title={moment().format('YYYY-MM-DD HH:mm:ss')}>
+              <span>{moment().fromNow()}</span>
+            </Tooltip>
+          }
+        />
       )
-    })
+    });
   }
 
   return (
@@ -99,39 +83,55 @@ function ProductDetail(props) {
       </Radio.Group>
 
       <p>Comments</p>
-      {comments.length > 0 && <CommentList comments={comments} />}
-      <Comment
-          avatar={
-            <Avatar
-              src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
-              alt="Han Solo"
-            />
-          }
-          content={
-            <Editor
-              onChange={(e) => handleChange(e)}
-              onSubmit={(e) => handleChange(e)}
-              submitting={submitComment}
-              value={commentValue}
-            />
-          }
-        />
+      {userInfo.data.id && (
+        <Card>
+          <Form
+            name="review"
+            labelCol={{ span: 8 }}
+            wrapperCol={{ span: 16 }}
+            onFinish={(values) => handleSubmit(values)}
+          >
+            <Form.Item
+              label="Rate"
+              name="rate"
+              rules={[{ required: true, message: "Please input your rate!" }]}
+            >
+              <Rate />
+            </Form.Item>
 
-        <p>Rating</p>
-        <Rate character={<HeartOutlined />} allowHalf allowClear={false} defaultValue={3}  />
+            <Form.Item
+              label="Comment"
+              name="comment"
+              rules={[{ required: true, message: "Please input your comment!" }]}
+            >
+              <Input.TextArea />
+            </Form.Item>
+            <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+              <Button type="primary" htmlType="submit">
+                Submit
+              </Button>
+            </Form.Item>
+          </Form>
+        </Card>
+      )}
+      <Card>
+        {renderProductReviews()}
+      </Card>
     </>
   );
 }
 const mapStateToProps = (state) => {
-  const { productDetail } = state;
+  const { productDetail, userInfo } = state;
   return {
     productDetail,
+    userInfo,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
     getProductDetail: (params) => dispatch(getProductDetailAction(params)),
+    postReview: (params) => dispatch(reviewAction(params))
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(ProductDetail);

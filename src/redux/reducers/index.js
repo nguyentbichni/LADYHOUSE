@@ -9,6 +9,7 @@ const initialState = {
     data: {
       category: {},
       productOptions: [],
+      reviews: [],
     },
     loading: false,
     error: '',
@@ -142,7 +143,7 @@ function myReducer(state = initialState, action) {
         }
       }
     }
-    case 'LOGIN_SUCCESS' :{
+    case 'LOGIN_SUCCESS':{
       const { data } = action.payload;
       return{
         ...state,
@@ -164,6 +165,79 @@ function myReducer(state = initialState, action) {
         }
       }
     }
+
+    //userInfo
+    case 'GET_USER_INFO_REQUEST':{
+      return{
+        ...state,
+        userInfo:{
+          ...state.userInfo,
+          load: true
+        }
+      }
+    }
+    case 'GET_USER_INFO_REQUEST_SUCCESS' :{
+      const { data } = action.payload;
+      return{
+        ...state,
+        userInfo:{
+          ...state.userInfo,
+          data: data,
+          load: false,
+        }
+      }
+    }
+    case 'GET_USER_INFO_REQUEST_FAIL': {
+      const { error } = action.payload;
+      return{
+        ...state,
+        userInfo: {
+          ...state.userInfo,
+          load: false,
+          error: error,
+        }
+      }
+    }
+
+    //Post Review
+    case 'REVIEW_REQUEST':{
+      return{
+        ...state,
+        productDetail:{
+          ...state.productDetail,
+          load: true
+        }
+      }
+    }
+    case 'REVIEW_REQUEST_SUCCESS' :{
+      const { data } = action.payload;
+      return{
+        ...state,
+        productDetail:{
+          ...state.productDetail,
+          data: {
+            ...state.productDetail.data,
+            reviews:[
+              ...state.productDetail.data.reviews,
+              ...data,
+            ]
+          },
+          load: false,
+        }
+      }
+    }
+    case 'REVIEW_REQUEST_FAIL': {
+      const { error } = action.payload;
+      return{
+        ...state,
+        productDetail: {
+          ...state.productDetail,
+          load: false,
+          error: error,
+        }
+      }
+    }
+
     default: {
       return state;
     }

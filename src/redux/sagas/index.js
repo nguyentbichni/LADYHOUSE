@@ -63,9 +63,9 @@ function* getProductDetailSaga(action) {
     // const response = yield axios.get(`http://localhost:3001/products/${id}`);
     const response = yield axios({
       method: 'GET',
-      url: `http://localhost:3001/products/${id}`,
+      url: `http://localhost:3001/products/${id}?_embed=productOptions&_embed=reviews`,
       params: {
-        _embed: 'productOptions',
+        _expand: 'category',
       }
     })
     yield put({
@@ -125,9 +125,59 @@ function* loginSaga(action){
     });
   }
 }
+
+function* getUserInfoSaga(action) {
+  try {
+    const { id } = action.payload;
+    const response = yield axios.get(`http://localhost:3001/users/${id}`);
+    yield put({
+      type: 'GET_USER_INFO_REQUEST_SUCCESS',
+      payload: {
+        data: response.data,
+      },
+    });
+  } catch (e) {
+    yield put({
+      type: 'GET_USER_INFO_REQUEST_FAIL',
+      payload: {
+        error: e.error
+      },
+    });
+  }
+}
+
+function* postReviewSaga(action) {
+  try {
+    const { id, newValues } = action.payload;
+    const response = yield axios({
+      method: 'POST',
+      url: `http://localhost:3001/products/${id}`,
+      data: {
+        _embed: 'reviews',
+        ...newValues && { newValues },
+      }
+    })
+    yield put({
+      type: 'REVIEW_REQUEST_SUCCESS',
+      payload: {
+        data: response.data.review
+      },
+    });
+  } catch (error) {
+    yield put({
+      type: 'REVIEW_REQUEST_FAIL',
+      payload: {
+        error: error.error,
+      },
+    });
+  }
+}
+
 export default function* mySaga() {
   yield takeEvery('GET_PRODUCT_LIST', getProductSaga);
   yield takeEvery('GET_PRODUCT_DETAIL', getProductDetailSaga);
   yield takeEvery('GET_CATEGORY_LIST_DETAIL', getCategoryListSaga);
   yield takeEvery('LOGIN_REQUEST', loginSaga);
+  yield takeEvery('GET_USER_INFO_REQUEST', getUserInfoSaga);
+  yield takeEvery('REVIEW_REQUEST', postReviewSaga);
 }

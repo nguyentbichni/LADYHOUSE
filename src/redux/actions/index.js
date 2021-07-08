@@ -19,9 +19,30 @@ export function getCategoryListAction(params){
   }
 }
 
+export function getReviewListAction(params){
+  return{
+    type: 'GET_REVIEW_LIST_DETAIL',
+    payload: params,
+  }
+}
+
 export function loginAction(params){
   return{
     type: 'LOGIN_REQUEST',
+    payload: params,
+  }
+}
+
+export function getUserInfoAction(params) {
+  return {
+    type: 'GET_USER_INFO_REQUEST',
+    payload: params,
+  }
+}
+
+export function reviewAction(params){
+  return{
+    type: 'REVIEW_REQUEST',
     payload: params,
   }
 }
