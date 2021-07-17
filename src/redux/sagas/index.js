@@ -86,11 +86,12 @@ function* getProductDetailSaga(action) {
 
 function* loginSaga(action){
   try{
-    const {email, password} = action.payload;
+    // http://localhost:3001/users?email=nguyentbichni&password=ni2401
+    const { email, password } = action.payload;
     const response = yield axios({
-      method: 'GET',
+      method: 'POST',
       url: 'http://localhost:3001/users',
-      params:{
+      data:{
         email,
         password,
       }
@@ -126,6 +127,39 @@ function* loginSaga(action){
   }
 }
 
+function* registerSaga(action){
+  try{
+    const { email, password, phone} = action.payload;
+    if(email.length > 0){
+      console.log("Đã tồn tại");
+    }else{
+      const response = yield axios({
+        method: 'POST',
+        url: 'http://localhost:3001/users',
+        data: {
+          email,
+          password,
+          phone,
+          role: 'user',
+        }
+      });
+      yield put({
+        type: 'REGISTER_SUCCESS',
+        payload: {
+          data: response.data,
+        }
+      });
+    }
+  } catch(e){
+    yield put({
+      type: 'REVIEW_PRODUCT_FAIL',
+      payload: {
+        error: e.error,
+      },
+    });
+  }
+}
+
 function* getUserInfoSaga(action) {
   try {
     const { id } = action.payload;
@@ -146,26 +180,51 @@ function* getUserInfoSaga(action) {
   }
 }
 
-function* postReviewSaga(action) {
+function* getReviewListSaga(action){
   try {
-    const { id, newValues } = action.payload;
+    const { id } = action.payload;
+    const response = yield axios({
+      method: 'GET',
+      url: 'http://localhost:3001/reviews',
+      params: {
+        productId: id,
+        _sort: 'id',
+        _order: 'desc'
+      }
+    });
+    yield put({
+      type: 'GET_REVIEW_LIST_SUCCESS',
+      payload: {
+        data: response.data,
+      }
+    });
+  } catch(error){
+    yield put({
+      type: 'GET_REVIEW_LIST_FAIL',
+      payload: {
+        error: error.error
+      },
+    });
+  }
+}
+
+function* reviewProductSaga(action) {
+  try {
+    const { data } = action.payload;
     const response = yield axios({
       method: 'POST',
-      url: `http://localhost:3001/products/${id}`,
-      data: {
-        _embed: 'reviews',
-        ...newValues && { newValues },
-      }
+      url: `http://localhost:3001/reviews`,
+      data: data
     })
     yield put({
-      type: 'REVIEW_REQUEST_SUCCESS',
+      type: 'REVIEW_PRODUCT_SUCCESS',
       payload: {
-        data: response.data.review
+        data: response.data
       },
     });
   } catch (error) {
     yield put({
-      type: 'REVIEW_REQUEST_FAIL',
+      type: 'REVIEW_PRODUCT_FAIL',
       payload: {
         error: error.error,
       },
@@ -178,6 +237,8 @@ export default function* mySaga() {
   yield takeEvery('GET_PRODUCT_DETAIL', getProductDetailSaga);
   yield takeEvery('GET_CATEGORY_LIST_DETAIL', getCategoryListSaga);
   yield takeEvery('LOGIN_REQUEST', loginSaga);
+  yield takeEvery('REGISTER_REQUEST', registerSaga);
   yield takeEvery('GET_USER_INFO_REQUEST', getUserInfoSaga);
-  yield takeEvery('REVIEW_REQUEST', postReviewSaga);
+  yield takeEvery('REVIEW_PRODUCT_REQUEST', reviewProductSaga);
+  yield takeEvery('GET_REVIEW_LIST_REQUEST', getReviewListSaga);
 }

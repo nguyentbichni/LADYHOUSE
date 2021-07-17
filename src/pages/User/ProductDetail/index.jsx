@@ -6,16 +6,31 @@ import moment from "moment";
 
 import * as Style from "./styles";
 
-import { getProductDetailAction, reviewAction } from "../../../redux/actions/index";
+import {
+  getProductDetailAction,
+  reviewProductAction,
+  getReviewListAction,
+} from "../../../redux/actions/index";
 
-function ProductDetail(props) {
-  const { getProductDetail, match, productDetail, userInfo, postReview } = props;
+function ProductDetail({
+  getProductDetail,
+  match,
+  productDetail,
+  userInfo,
+  reviewProduct,
+  getReviewList,
+  reviewList,
+  actionResponse,
+}) {
+  const productId = match.params.id;
+
   const [optionSelected, setOptionSelected] = useState({});
 
-  const productId = match.params.id;
+  const [reviewProductForm] = Form.useForm();
 
   useEffect(() => {
     getProductDetail({ id: productId });
+    getReviewList({ id: productId });
   }, []);
 
   useEffect(() => {
@@ -25,15 +40,16 @@ function ProductDetail(props) {
   }, [productDetail.data]);
 
   const handleSubmit = (values) => {
-    const newValues = {
+    const data = {
       userId: userInfo.data.id,
+      userName: userInfo.data.name,
       productId: productId,
       rate: values.rate,
       comment: values.comment,
       createAt: moment().valueOf(),
-    }
-    console.log("🚀 ~ file: index.jsx ~ line 36 ~ handleSubmit ~ newValues", newValues);
-    postReview(newValues);
+    };
+    reviewProduct({ data: data });
+    reviewProductForm.resetFields();
   };
 
   function renderProductOptions() {
@@ -43,15 +59,15 @@ function ProductDetail(props) {
   }
 
   function renderProductReviews() {
-    return productDetail.data.reviews.map((item, index) => {
+    return reviewList.data.map((item, index) => {
       return (
         <Comment
           key={index}
-          author={<a>{userInfo.data.name}</a>}
+          author={<a>{item.userName}</a>}
           avatar={
             <Avatar
               src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
-              alt={userInfo.data.name}
+              alt={item.userName}
             />
           }
           content={
@@ -87,6 +103,7 @@ function ProductDetail(props) {
         <Card>
           <Form
             name="review"
+            form={reviewProductForm}
             labelCol={{ span: 8 }}
             wrapperCol={{ span: 16 }}
             onFinish={(values) => handleSubmit(values)}
@@ -107,7 +124,11 @@ function ProductDetail(props) {
               <Input.TextArea />
             </Form.Item>
             <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-              <Button type="primary" htmlType="submit">
+              <Button
+                type="primary"
+                htmlType="submit"
+                loading={actionResponse.reviewProduct.loading}
+              >
                 Submit
               </Button>
             </Form.Item>
@@ -121,17 +142,20 @@ function ProductDetail(props) {
   );
 }
 const mapStateToProps = (state) => {
-  const { productDetail, userInfo } = state;
+  const { productDetail, userInfo, reviewList, actionResponse } = state;
   return {
     productDetail,
     userInfo,
+    reviewList,
+    actionResponse,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
     getProductDetail: (params) => dispatch(getProductDetailAction(params)),
-    postReview: (params) => dispatch(reviewAction(params))
+    reviewProduct: (params) => dispatch(reviewProductAction(params)),
+    getReviewList: (params) => dispatch(getReviewListAction(params)),
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(ProductDetail);

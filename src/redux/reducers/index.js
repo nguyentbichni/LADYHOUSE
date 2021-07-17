@@ -19,11 +19,22 @@ const initialState = {
     loading: false,
     error: '',
   },
+  reviewList: {
+    data: [],
+    loading: false,
+    error: '',
+  },
   //login
   userInfo:{
     data: {},
-    load: false,
+    loading: false,
     error: ''
+  },
+  actionResponse: {
+    reviewProduct: {
+      loading: false,
+      error: '',
+    }
   }
   // loading: false,
 };
@@ -139,7 +150,7 @@ function myReducer(state = initialState, action) {
         ...state,
         userInfo:{
           ...state.userInfo,
-          load: true
+          loading: true
         }
       }
     }
@@ -150,7 +161,7 @@ function myReducer(state = initialState, action) {
         userInfo:{
           ...state.userInfo,
           data: data,
-          load: false,
+          loading: false,
         }
       }
     }
@@ -160,19 +171,51 @@ function myReducer(state = initialState, action) {
         ...state,
         userInfo: {
           ...state.userInfo,
-          load: false,
+          loading: false,
           error: error,
         }
       }
     }
 
+    //register
+    case 'REGISTER_REQUEST':{
+      return{
+        ...state,
+        userInfo:{
+          ...state.userInfo,
+          loading: true
+        }
+      }
+    }
+    case 'REGISTER_SUCCESS':{
+      const { data } = action.payload;
+      return{
+        ...state,
+        userInfo:{
+          ...state.userInfo,
+          data: data,
+          loading: false,
+        }
+      }
+    }
+    case 'REGISTER_FAIL': {
+      const { error } = action.payload;
+      return{
+        ...state,
+        userInfo: {
+          ...state.userInfo,
+          loading: false,
+          error: error,
+        }
+      }
+    }
     //userInfo
     case 'GET_USER_INFO_REQUEST':{
       return{
         ...state,
         userInfo:{
           ...state.userInfo,
-          load: true
+          loading: true
         }
       }
     }
@@ -183,7 +226,7 @@ function myReducer(state = initialState, action) {
         userInfo:{
           ...state.userInfo,
           data: data,
-          load: false,
+          loading: false,
         }
       }
     }
@@ -193,47 +236,88 @@ function myReducer(state = initialState, action) {
         ...state,
         userInfo: {
           ...state.userInfo,
-          load: false,
+          loading: false,
           error: error,
         }
       }
     }
 
     //Post Review
-    case 'REVIEW_REQUEST':{
+    case 'GET_REVIEW_LIST_REQUEST':{
       return{
         ...state,
-        productDetail:{
-          ...state.productDetail,
-          load: true
+        reviewList: {
+          ...state.reviewList,
+          loading: true
         }
       }
     }
-    case 'REVIEW_REQUEST_SUCCESS' :{
+    case 'GET_REVIEW_LIST_SUCCESS' :{
       const { data } = action.payload;
       return{
         ...state,
-        productDetail:{
-          ...state.productDetail,
-          data: {
-            ...state.productDetail.data,
-            reviews:[
-              ...state.productDetail.data.reviews,
-              ...data,
-            ]
-          },
-          load: false,
+        reviewList: {
+          ...state.reviewList,
+          data: data,
+          loading: false,
         }
       }
     }
-    case 'REVIEW_REQUEST_FAIL': {
+    case 'GET_REVIEW_LIST_FAIL': {
       const { error } = action.payload;
       return{
         ...state,
-        productDetail: {
-          ...state.productDetail,
-          load: false,
+        reviewList: {
+          ...state.reviewList,
+          loading: false,
           error: error,
+        }
+      }
+    }
+
+    case 'REVIEW_PRODUCT_REQUEST':{
+      return{
+        ...state,
+        actionResponse: {
+          ...state.actionResponse,
+          reviewProduct: {
+            ...state.actionResponse.reviewProduct,
+            loading: true,
+          }
+        }
+      }
+    }
+    case 'REVIEW_PRODUCT_SUCCESS': {
+      const { data } = action.payload;
+      return{
+        ...state,
+        reviewList: {
+          ...state.reviewList,
+          data: [
+            data,
+            ...state.reviewList.data,
+          ],
+        },
+        actionResponse: {
+          ...state.actionResponse,
+          reviewProduct: {
+            ...state.actionResponse.reviewProduct,
+            loading: false,
+          }
+        }
+      }
+    }
+    case 'REVIEW_PRODUCT_FAIL': {
+      const { error } = action.payload;
+      return{
+        ...state,
+        actionResponse: {
+          ...state.actionResponse,
+          reviewProduct: {
+            ...state.actionResponse.reviewProduct,
+            loading: false,
+            error: error
+          }
         }
       }
     }

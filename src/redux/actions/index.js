@@ -19,16 +19,16 @@ export function getCategoryListAction(params){
   }
 }
 
-export function getReviewListAction(params){
+export function loginAction(params){
   return{
-    type: 'GET_REVIEW_LIST_DETAIL',
+    type: 'LOGIN_REQUEST',
     payload: params,
   }
 }
 
-export function loginAction(params){
+export function registerAction(params){
   return{
-    type: 'LOGIN_REQUEST',
+    type: 'REGISTER_REQUEST',
     payload: params,
   }
 }
@@ -40,9 +40,16 @@ export function getUserInfoAction(params) {
   }
 }
 
-export function reviewAction(params){
+export function getReviewListAction(params){
   return{
-    type: 'REVIEW_REQUEST',
+    type: 'GET_REVIEW_LIST_REQUEST',
+    payload: params,
+  }
+}
+
+export function reviewProductAction(params){
+  return{
+    type: 'REVIEW_PRODUCT_REQUEST',
     payload: params,
   }
 }

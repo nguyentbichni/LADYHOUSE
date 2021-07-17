@@ -7,9 +7,11 @@ import history from './util/history';
 import theme from "./constants/themes";
 
 import LoginLayout from './layouts/LoginLayout';
+import RegisterLayout from './layouts/RegisterLayout';
 import DefaultLayout from './layouts/DefaultLayout';
 
 import Login from './pages/Login';
+import Register from './pages/Register';
 import Home from './pages/User/Home';
 import ProductList from './pages/User/ProductList';
 import ProductDetail from './pages/User/ProductDetail';
@@ -28,6 +30,7 @@ export function App({getUserInfo}){
       <Router history={history}>
         <Switch>
           <LoginLayout exact path="/login" component={Login} />
+          <RegisterLayout exact path="/register" component={Register} />
 
           <DefaultLayout exact path="/products" component={ProductList}/>
           <DefaultLayout exact path="/" component={Home} />
