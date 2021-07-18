@@ -157,42 +157,6 @@
       "comment": "123321",
       "createAt": 1625841902135,
       "id": 3
-    },
-    {
-      "userId": 2,
-      "userName": "Na",
-      "productId": "1",
-      "rate": 4,
-      "comment": "123",
-      "createAt": 1625842065937,
-      "id": 4
-    },
-    {
-      "userId": 2,
-      "userName": "Na",
-      "productId": "1",
-      "rate": 3,
-      "comment": "hihihi",
-      "createAt": 1625842085149,
-      "id": 5
-    },
-    {
-      "userId": 2,
-      "userName": "Na",
-      "productId": "1",
-      "rate": 1,
-      "comment": "123",
-      "createAt": 1625842095076,
-      "id": 6
-    },
-    {
-      "userId": 2,
-      "userName": "Na",
-      "productId": "1",
-      "rate": 5,
-      "comment": "haahaha",
-      "createAt": 1625842113462,
-      "id": 7
     }
   ]
 }

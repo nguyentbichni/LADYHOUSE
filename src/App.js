@@ -15,6 +15,8 @@ import Register from './pages/Register';
 import Home from './pages/User/Home';
 import ProductList from './pages/User/ProductList';
 import ProductDetail from './pages/User/ProductDetail';
+import CartList from './pages/User/CartList';
+
 import { getUserInfoAction } from './redux/actions';
 
 
@@ -39,6 +41,7 @@ export function App({getUserInfo}){
             path="/product/:id"
             component={ProductDetail}
           />
+          <DefaultLayout exact path="/cartlist" component={CartList}/>
         </Switch>
       </Router>
     </ThemeProvider>

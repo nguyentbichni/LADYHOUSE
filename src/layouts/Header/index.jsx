@@ -69,8 +69,15 @@ function Header({ userInfo }) {
                 }}
               />
             </li>
-            <li><a href="#"><FaUser /></a></li>
-            <li><a href="#"><FaShoppingCart /></a></li>
+            <li><a href="javascript:void(0)"><FaUser /></a></li>
+            <li>
+              <a
+                href="javascript:void(0)"
+                onClick={() => history.push("/cartlist")}
+              >
+                <FaShoppingCart />
+              </a>
+            </li>
             <li className="last"><a href="#"><FaHeart /></a></li>
           </ul>
         </div>
