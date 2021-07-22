@@ -22,35 +22,21 @@
     },
     {
       "email": "nguyenthoaimy@gmail.com",
-      "password": "2302",
-      "phone": "0333333",
+      "password": "hoaimy",
+      "phone": "055555",
+      "name": "My",
       "role": "user",
-      "id": 3
-    },
-    {
-      "email": "nguyenthoaimy@gmail.com",
-      "password": "2302",
+      "cart": [],
       "id": 4
     },
     {
-      "email": "nguyentbichna@gmail.com",
-      "password": "na2401",
+      "email": "tuan1@gmail.com",
+      "password": "tuan",
+      "phone": "055555",
+      "name": "Tuấn",
+      "role": "user",
+      "cart": [],
       "id": 5
-    },
-    {
-      "email": "nguyentbichna@gmail.com",
-      "password": "na2401",
-      "id": 6
-    },
-    {
-      "email": "nguyentbichna@gmail.com",
-      "password": "na2401",
-      "id": 7
-    },
-    {
-      "email": "nguyentbichna@gmail.com",
-      "password": "na2401",
-      "id": 8
     }
   ],
   "categories": [

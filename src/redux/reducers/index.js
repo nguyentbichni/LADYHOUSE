@@ -35,8 +35,14 @@ const initialState = {
       loading: false,
       error: '',
     }
-  }
+  },
   // loading: false,
+  //admin
+  userList:{
+    data: [],
+    loading: false,
+    error: ''
+  }
 };
 
 function myReducer(state = initialState, action) {
@@ -322,6 +328,38 @@ function myReducer(state = initialState, action) {
       }
     }
 
+    //User List
+    case 'ADMIN/GET_USER_LIST_REQUEST':{
+      return{
+        ...state,
+        userList:{
+          ...state.userList,
+          load: true,
+        }
+      }
+    }
+    case 'ADMIN/GET_USER_LIST_SUCCESS':{
+      const { data } = action.payload;
+      return{
+        ...state,
+        userList: {
+          ...state.userList,
+          data: data,
+          load: false,
+        }
+      }
+    }
+    case 'ADMIN/GET_USER_LIST_FAIL':{
+      const { error } = action.payload;
+      return{
+        ...state,
+        userList:{
+          ...state.userList,
+          load: false,
+          error: error,
+        }
+      }
+    }
     default: {
       return state;
     }

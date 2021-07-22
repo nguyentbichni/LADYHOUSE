@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Button } from 'antd';
-import "./styles.css";
+// import "./styles.css";
+import * as Style from "./styles";
 
 const cartList = [{
   id: 1,
@@ -38,31 +39,31 @@ function CartList(){
     return cartListData.map((cartItem, cartIndex) => {
       return(
         <>
-        <div className="cart_list_wrap" key={`cartitem-${cartItem.id}-${cartIndex}`}>
-          <div className="cart_item_wrap">
-            <div className="cart_item_content">
-              <div className="col-1">
+        <Style.CartListWrap key={`cartitem-${cartItem.id}-${cartIndex}`}>
+          <Style.CartItemWrap>
+            <Style.CartItemContent>
+              <Style.Col1>
                 <p>{cartItem.name}</p>
-              </div>
-              <div className="col-2">
+              </Style.Col1>
+              <Style.Col2>
                 <span>{cartItem.price}</span>
-              </div>
-              <div className="col-3">
-                <div className="quantity_select_box">
-                  <span className="quantity_down" onClick={() => handleChangeQuality('minus', cartItem.id)}>-</span>
-                  <input className="input_quantity" value={cartItem.quantity} type="tel"/>
-                  <span className="quantity_up" onClick={() => handleChangeQuality('plus', cartItem.id)}>+</span>
-                </div>
-              </div>
-              <div className="col-4">
+              </Style.Col2>
+              <Style.Col3>
+                <Style.QuantitySelectBox>
+                  <Style.QuantityDown className="quantity_down" onClick={() => handleChangeQuality('minus', cartItem.id)}>-</Style.QuantityDown>
+                  <Style.QuantityInput className="input_quantity" value={cartItem.quantity} type="tel"/>
+                  <Style.QuantityUp className="quantity_up" onClick={() => handleChangeQuality('plus', cartItem.id)}>+</Style.QuantityUp>
+                </Style.QuantitySelectBox>
+              </Style.Col3>
+              <Style.Col4>
                 <span className="final_price">{cartItem.finalPrice}</span>
-              </div>
-              <div className="col-5">
+              </Style.Col4>
+              <Style.Col5>
                 <span className="del_cart_item">Xoá</span>
-              </div>
-            </div>
-          </div>
-        </div>
+              </Style.Col5>
+            </Style.CartItemContent>
+          </Style.CartItemWrap>
+        </Style.CartListWrap>
         </>
       )
     });
@@ -70,23 +71,23 @@ function CartList(){
   return(
     <>
       <h1>Cart List</h1>
-      <div className="tbl_header_cart">
-        <div className="product_name col-1">
+      <Style.TableHeader>
+        <Style.Col1>
           Sản phẩm
-        </div>
-        <div className="product_price col-2">
+        </Style.Col1>
+        <Style.Col2>
           Đơn giá
-        </div>
-        <div className="product_quantity col-3">
+        </Style.Col2>
+        <Style.Col3>
           Số lượng
-        </div>
-        <div className="product_amount col-4">
+        </Style.Col3>
+        <Style.Col4>
           Số tiền
-        </div>
-        <div className="product_action col-5">
+        </Style.Col4>
+        <Style.Col5>
           Thao tác
-        </div>
-      </div>
+        </Style.Col5>
+      </Style.TableHeader>
       {renderCartList()}
       <Button>Thanh Toán</Button>
     </>

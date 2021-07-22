@@ -9,6 +9,7 @@ import theme from "./constants/themes";
 import LoginLayout from './layouts/LoginLayout';
 import RegisterLayout from './layouts/RegisterLayout';
 import DefaultLayout from './layouts/DefaultLayout';
+import AdminLayout from './layouts/AdminLayout';
 
 import Login from './pages/Login';
 import Register from './pages/Register';
@@ -17,6 +18,7 @@ import ProductList from './pages/User/ProductList';
 import ProductDetail from './pages/User/ProductDetail';
 import CartList from './pages/User/CartList';
 
+import UserManagement from './pages/Admin/UserManagement';
 import { getUserInfoAction } from './redux/actions';
 
 
@@ -36,12 +38,14 @@ export function App({getUserInfo}){
 
           <DefaultLayout exact path="/products" component={ProductList}/>
           <DefaultLayout exact path="/" component={Home} />
+          <DefaultLayout exact path="/cartlist" component={CartList}/>
           <DefaultLayout
             exact
             path="/product/:id"
             component={ProductDetail}
           />
-          <DefaultLayout exact path="/cartlist" component={CartList}/>
+
+          <AdminLayout exact path="/admin/user-management" component={UserManagement}/>
         </Switch>
       </Router>
     </ThemeProvider>

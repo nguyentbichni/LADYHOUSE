@@ -10,7 +10,7 @@ function LoginLayout(props){
       return <Redirect to ="/" />;
     }
     if (userInfo.role === 'admin'){
-      return <Redirect to="admin/products"/>
+      return <Redirect to="admin/user-management"/>
     }
   }
   return (

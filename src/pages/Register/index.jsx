@@ -67,6 +67,19 @@ function Register ({ register }){
       </Form.Item>
 
       <Form.Item
+        name="name"
+        label="name"
+        rules={[
+          {
+            required: true,
+            message: 'Please input your name!',
+          },
+        ]}
+      >
+        <Input />
+      </Form.Item>
+      
+      <Form.Item
         name="phone"
         label="Phone Number"
         rules={[{ required: true, message: 'Please input your phone number!' }]}

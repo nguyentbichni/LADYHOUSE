@@ -85,52 +85,57 @@ function* getProductDetailSaga(action) {
 }
 
 function* loginSaga(action){
-  try{
-    // http://localhost:3001/users?email=nguyentbichni&password=ni2401
+  try {
     const { email, password } = action.payload;
-    const response = yield axios({
-      method: 'POST',
+    // http://localhost:3001/users?email=nguyentbichni&password=ni2401
+    const result = yield axios({
+      method: 'GET',
       url: 'http://localhost:3001/users',
-      data:{
+      params: {
         email,
         password,
       }
     });
-    if(response.data.length > 0){
-      localStorage.setItem('userInfo', JSON.stringify(response.data[0]));
+    console.log("🚀 ~ file: index.js ~ line 98 ~ function*loginSaga ~ result", result)
+    if (result.data.length > 0) {
+      localStorage.setItem('userInfo', JSON.stringify(result.data[0]));
       yield put({
-        type: 'LOGIN_SUCCESS',
-        payload:{
-          data: response.data[0],
-        }
-      });
-      if (response.data[0].role === 'user'){
-        yield history.push('/')
-      } else{
-        yield history.push('/admin/products');
-      }
-    } else{
-      yield put({
-        type: 'LOGIN_FAIL',
+        type: "LOGIN_SUCCESS",
         payload: {
-          error: 'Email or Password Incorrect'
-        }
-      })
-    }
-  } catch(e){
-    yield put({
-      type: 'LOGIN_FAIL',
-      payload:{
-        error: e.error
+          data: result.data[0],
+        },
+      });
+      if (result.data[0].role === 'user') {
+        yield history.push('/');
+      } else {
+        yield history.push('/admin/user-management');
       }
+    } else {
+      yield put({
+        type: "LOGIN_FAIL",
+        payload: {
+          error: 'Email hoặc mật khẩu không đúng',
+        },
+      });
+    }
+  } catch (e) {
+    yield put({
+      type: "LOGIN_FAIL",
+      payload: {
+        error: e.error
+      },
     });
   }
 }
 
 function* registerSaga(action){
   try{
-    const { email, password, phone} = action.payload;
-    if(email.length > 0){
+    const { email, password, phone, name} = action.payload;
+    const emailArray = yield axios({
+      method: 'GET',
+      url: `http://localhost:3001/users?email=${email}`,
+    })
+    if(emailArray.data.length > 0){
       console.log("Đã tồn tại");
     }else{
       const response = yield axios({
@@ -139,8 +144,10 @@ function* registerSaga(action){
         data: {
           email,
           password,
+          name,
           phone,
           role: 'user',
+          cart: [],
         }
       });
       yield put({
@@ -150,9 +157,9 @@ function* registerSaga(action){
         }
       });
     }
-  } catch(e){
+  }catch(e){
     yield put({
-      type: 'REVIEW_PRODUCT_FAIL',
+      type: 'REGISTER__FAIL',
       payload: {
         error: e.error,
       },
@@ -232,6 +239,27 @@ function* reviewProductSaga(action) {
   }
 }
 
+function* getUserListSaga(action){
+  try{
+    const response = yield axios({
+      method: 'GET',
+      url: 'http://localhost:3001/users'
+    });
+    yield put({
+      type: 'ADMIN/GET_USER_LIST_SUCCESS',
+      payload: {
+        data: response.data
+      }
+    })
+  }catch(e){
+    yield put({
+      type: 'ADMIN/GET_USER_LIST_FAIL',
+      payload:{
+        error: e.error
+      },
+    });
+  }
+}
 export default function* mySaga() {
   yield takeEvery('GET_PRODUCT_LIST', getProductSaga);
   yield takeEvery('GET_PRODUCT_DETAIL', getProductDetailSaga);
@@ -241,4 +269,5 @@ export default function* mySaga() {
   yield takeEvery('GET_USER_INFO_REQUEST', getUserInfoSaga);
   yield takeEvery('REVIEW_PRODUCT_REQUEST', reviewProductSaga);
   yield takeEvery('GET_REVIEW_LIST_REQUEST', getReviewListSaga);
+  yield takeEvery('ADMIN/GET_USER_LIST_REQUEST', getUserListSaga);
 }

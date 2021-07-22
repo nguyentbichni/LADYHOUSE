@@ -53,3 +53,11 @@ export function reviewProductAction(params){
     payload: params,
   }
 }
+
+//Admin
+export function getUserListAction(params) {
+  return {
+    type: 'ADMIN/GET_USER_LIST_REQUEST',
+    payload: params,
+  }
+}
