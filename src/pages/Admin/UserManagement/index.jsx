@@ -1,36 +1,29 @@
 import React, {useEffect} from "react";
 import { connect } from "react-redux";
 import {
-  Row,
   Table,
   Button,
   Space,
-  Drawer,
-  Form,
-  Input,
-  Select,
   Popconfirm,
-  List,
-  InputNumber,
-  Checkbox,
-  Card,
 } from 'antd';
 import {
   EditOutlined,
   DeleteOutlined,
-  PlusOutlined,
 } from '@ant-design/icons';
 import * as Style from './styles';
 
-import { getUserListAction } from "../../../redux/actions"
+import { getUserListAction, deleteUserAction } from "../../../redux/actions"
 function UserManagement({
   getUserList,
-  userList
+  userList,
+  deleteUser,
 }) {
+  console.log("🚀 ~ file: index.jsx ~ line 21 ~ userList", userList)
 
   useEffect(() => {
     getUserList();
   }, [])
+
 
   const tableColumns = [
     {
@@ -67,6 +60,7 @@ function UserManagement({
               title={`Bạn có chắc muốn xóa ${record.name}`}
               okText="Xóa"
               cancelText="Hủy"
+              onConfirm={() => deleteUser({ id: record.id })}
             >
               <Button danger ><DeleteOutlined /></Button>
             </Popconfirm>
@@ -75,17 +69,6 @@ function UserManagement({
       }
     }
   ]
-
-  const renderUserList = () => {
-    return userList.data.map((userItem, userIndex) => {
-      return(
-        <>
-          <p>{userItem.name}</p>
-          <p>{userItem.email}</p>
-        </>
-      )
-    })
-  }
 
   const tableData = userList.data.map((userItem) => {
     return {
@@ -99,7 +82,7 @@ function UserManagement({
 
   return(
     <>
-      <p>User Management</p>
+      <h1>User Management</h1>
       <Table
         columns={tableColumns}
         dataSource={tableData}
@@ -108,14 +91,15 @@ function UserManagement({
   )
 }
 const mapStateToProps = (state) => {
-  const { userList } = state;
+  const { userList } = state.adminCommonReducer;
   return {
     userList
   }
 }
 const mapDispatchToProp = (dispatch) => {
   return{
-    getUserList: (params) => dispatch(getUserListAction(params))
+    getUserList: (params) => dispatch(getUserListAction(params)),
+    deleteUser: (params) => dispatch(deleteUserAction(params)),
   }
 }
 export default connect(mapStateToProps, mapDispatchToProp)(UserManagement);

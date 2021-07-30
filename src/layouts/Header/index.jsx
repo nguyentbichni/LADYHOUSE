@@ -86,7 +86,7 @@ function Header({ userInfo }) {
   );
 }
 const mapStateToProps = (state) => {
-  const { userInfo } = state;
+  const { userInfo } = state.userInfoReducer;
   return{
     userInfo,
   }

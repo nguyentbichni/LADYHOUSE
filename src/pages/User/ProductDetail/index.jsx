@@ -142,12 +142,13 @@ function ProductDetail({
   );
 }
 const mapStateToProps = (state) => {
-  const { productDetail, userInfo, reviewList, actionResponse } = state;
+  const { productDetail, reviewList, actionResponse  } = state.userProductReducer;
+  const { userInfo } = state.userInfoReducer;
   return {
     productDetail,
-    userInfo,
     reviewList,
     actionResponse,
+    userInfo,
   };
 };
 

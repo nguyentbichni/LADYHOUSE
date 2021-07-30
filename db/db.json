@@ -1,42 +1,31 @@
 {
   "users": [
     {
-      "id": 1,
-      "name": "Ni",
-      "address": "Quảng Nam",
-      "phone": "0702303444",
-      "email": "nguyentbichni@gmail.com",
+      "email": "ni@gmail.com",
       "password": "ni2401",
+      "name": "Ni",
+      "phone": "+10702303444",
       "role": "admin",
-      "carts": []
-    },
-    {
-      "id": 2,
-      "name": "Na",
-      "address": "Quảng Nam",
-      "phone": "0702303555",
-      "email": "nguyentbichna@gmail.com",
-      "password": "na2401",
-      "role": "user",
-      "carts": []
-    },
-    {
-      "email": "nguyenthoaimy@gmail.com",
-      "password": "hoaimy",
-      "phone": "055555",
-      "name": "My",
-      "role": "user",
       "cart": [],
-      "id": 4
+      "id": 1
     },
     {
-      "email": "tuan1@gmail.com",
+      "email": "tuan@gmail.com",
       "password": "tuan",
-      "phone": "055555",
-      "name": "Tuấn",
+      "name": "Tuan",
+      "phone": "+10702303444",
       "role": "user",
       "cart": [],
-      "id": 5
+      "id": 2
+    },
+    {
+      "email": "my@gmail.com",
+      "password": "my",
+      "name": "My",
+      "phone": "0000",
+      "role": "user",
+      "cart": [],
+      "id": 3
     }
   ],
   "categories": [
@@ -99,50 +88,6 @@
       "price": 50000
     }
   ],
-  "order": [
-    {
-      "id": 1,
-      "userId": 1,
-      "totalPrice": 1000000,
-      "products": [
-        {
-          "productId": 1,
-          "productName": "Serum AHC",
-          "productOptionId": 1,
-          "productOptionTitle": "100md",
-          "count": 2,
-          "price": 1000000
-        }
-      ]
-    }
-  ],
-  "reviews": [
-    {
-      "userId": 2,
-      "userName": "Na",
-      "productId": "1",
-      "rate": 4,
-      "comment": "123321",
-      "createAt": 1625841745038,
-      "id": 1
-    },
-    {
-      "userId": 2,
-      "userName": "Na",
-      "productId": "1",
-      "rate": 4,
-      "comment": "hello",
-      "createAt": 1625841755994,
-      "id": 2
-    },
-    {
-      "userId": 2,
-      "userName": "Na",
-      "productId": "1",
-      "rate": 2,
-      "comment": "123321",
-      "createAt": 1625841902135,
-      "id": 3
-    }
-  ]
+  "order": [],
+  "reviews": []
 }

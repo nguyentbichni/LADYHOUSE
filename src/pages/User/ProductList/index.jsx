@@ -220,7 +220,7 @@ function ProductList({
 }
 
 const mapStateToProps = (state) => {
-  const { productList, categoryList } = state;
+  const { productList, categoryList } = state.userProductReducer;
   return {
     productList,
     categoryList,
